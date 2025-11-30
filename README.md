@@ -5,7 +5,8 @@ Un programme Python simple pour gérer votre liste de tâches.
 ## Fonctionnalités
 
 - ✅ Ajouter une tâche (avec date/heure de création)
-- ✅ Afficher les tâches
+- ✅ Afficher les tâches avec leur statut (○ en cours, ✓ complétée)
+- ✅ Marquer une tâche comme complétée (historique conservé)
 - ✅ Supprimer une tâche
 - ✅ Sauvegarder automatiquement dans un fichier
 
@@ -19,8 +20,9 @@ python main.py
 2. Choisissez une option du menu:
    - **1**: Ajouter une tâche
    - **2**: Afficher vos tâches
-   - **3**: Supprimer une tâche
-   - **4**: Quitter
+   - **3**: Marquer une tâche comme complétée
+   - **4**: Supprimer une tâche
+   - **5**: Quitter
 
 ## Fichiers
 
