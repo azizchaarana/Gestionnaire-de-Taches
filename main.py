@@ -1,6 +1,8 @@
 # Gestionnaire de Tâches Simple
 # Pour débuter en Python
 
+from datetime import datetime
+
 def afficher_menu():
     print("\n=== GESTIONNAIRE DE TÂCHES ===")
     print("1. Ajouter une tâche")
@@ -29,10 +31,13 @@ def sauvegarder_taches(taches):
 
 
 def ajouter_tache(taches):
-    """Ajoute une nouvelle tâche"""
+    """Ajoute une nouvelle tâche avec la date/heure actuelle"""
     tache = input("Entrez la tâche: ")
     if tache:
-        taches.append(tache)
+        # Ajouter la date et l'heure actuelles
+        date_heure = datetime.now().strftime("%d/%m/%Y %H:%M")
+        tache_avec_date = f"{tache} | Créée le: {date_heure}"
+        taches.append(tache_avec_date)
         sauvegarder_taches(taches)
         print("✓ Tâche ajoutée!")
     else:

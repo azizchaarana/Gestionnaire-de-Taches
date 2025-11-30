@@ -4,7 +4,7 @@ Un programme Python simple pour gérer votre liste de tâches.
 
 ## Fonctionnalités
 
-- ✅ Ajouter une tâche
+- ✅ Ajouter une tâche (avec date/heure de création)
 - ✅ Afficher les tâches
 - ✅ Supprimer une tâche
 - ✅ Sauvegarder automatiquement dans un fichier
@@ -26,13 +26,6 @@ python main.py
 
 - `main.py`: Le programme principal
 - `taches.txt`: Fichier où les tâches sont sauvegardées (créé automatiquement)
-
-## Compétences apprises
-
-- Les listes en Python
-- Les fichiers (lecture/écriture)
-- Les boucles et conditions
-- Les fonctions
 
 ## Améliorations futures possibles
 
