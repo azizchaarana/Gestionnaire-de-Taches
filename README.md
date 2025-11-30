@@ -4,7 +4,7 @@ Un programme Python simple pour gérer votre liste de tâches.
 
 ## Fonctionnalités
 
-- ✅ Ajouter une tâche
+- ✅ Ajouter une tâche (avec date/heure de création)
 - ✅ Afficher les tâches
 - ✅ Supprimer une tâche
 - ✅ Sauvegarder automatiquement dans un fichier
@@ -33,6 +33,9 @@ python main.py
 - Les fichiers (lecture/écriture)
 - Les boucles et conditions
 - Les fonctions
+- Le module `datetime` (dates et heures)
+- Les f-strings (formatage de chaînes)
+- La méthode `strftime()` pour formater les dates
 
 ## Améliorations futures possibles
 
