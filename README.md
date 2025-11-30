@@ -33,3 +33,23 @@ python main.py
 - Les fichiers (lecture/écriture)
 - Les boucles et conditions
 - Les fonctions
+
+## Améliorations futures possibles
+
+Ces améliorations pourraient être implémentées après maîtrise des bases:
+
+1. **Ajouter des dates/heures** aux tâches
+   - Utiliser le module `datetime`
+   - Afficher quand chaque tâche a été créée
+
+2. **Marquer les tâches comme "complétées"** au lieu de les supprimer
+   - Garder un historique des tâches
+   - Afficher un statut (✓ complétée, ○ en cours)
+
+3. **Utiliser une base de données** au lieu d'un fichier txt
+   - Découvrir SQLite (plus robuste qu'un fichier)
+   - Meilleure gestion des données
+
+4. **Ajouter une interface graphique (GUI)**
+   - Utiliser tkinter (bibliothèque Python)
+   - Plus convivial qu'une interface en ligne de commande
