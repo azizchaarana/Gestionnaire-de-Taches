@@ -27,16 +27,6 @@ python main.py
 - `main.py`: Le programme principal
 - `taches.txt`: Fichier où les tâches sont sauvegardées (créé automatiquement)
 
-## Compétences apprises
-
-- Les listes en Python
-- Les fichiers (lecture/écriture)
-- Les boucles et conditions
-- Les fonctions
-- Le module `datetime` (dates et heures)
-- Les f-strings (formatage de chaînes)
-- La méthode `strftime()` pour formater les dates
-
 ## Améliorations futures possibles
 
 Ces améliorations pourraient être implémentées après maîtrise des bases:
