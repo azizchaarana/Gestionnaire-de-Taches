@@ -12,21 +12,33 @@ Un programme Python simple pour gérer votre liste de tâches.
 
 ## Comment utiliser
 
-1. Lancez le programme:
+### Version en ligne de commande
 ```bash
 python main.py
 ```
 
-2. Choisissez une option du menu:
+### Version avec interface graphique (GUI)
+```bash
+python gui.py
+```
+
+#### Options du menu en ligne de commande:
    - **1**: Ajouter une tâche
    - **2**: Afficher vos tâches
    - **3**: Marquer une tâche comme complétée
    - **4**: Supprimer une tâche
    - **5**: Quitter
 
+#### Boutons de la GUI:
+   - **Ajouter**: Ajoute une nouvelle tâche
+   - **Marquer comme complétée**: Marque la tâche sélectionnée comme complétée
+   - **Supprimer**: Supprime la tâche sélectionnée
+   - **Actualiser**: Actualise la liste des tâches
+
 ## Fichiers
 
-- `main.py`: Le programme principal
+- `main.py`: Le programme en ligne de commande
+- `gui.py`: Le programme avec interface graphique
 - `taches.db`: Base de données SQLite (créée automatiquement)
 
 ## Améliorations futures possibles
@@ -46,6 +58,7 @@ Ces améliorations pourraient être implémentées après maîtrise des bases:
    - ~~Meilleure gestion des données~~
    - ✅ **COMPLÉTÉE**: Utilisation de SQLite!
 
-4. **Ajouter une interface graphique (GUI)**
-   - Utiliser tkinter (bibliothèque Python)
-   - Plus convivial qu'une interface en ligne de commande
+4. ~~**Ajouter une interface graphique (GUI)**~~
+   - ~~Utiliser tkinter (bibliothèque Python)~~
+   - ~~Plus convivial qu'une interface en ligne de commande~~
+   - ✅ **COMPLÉTÉE**: Interface graphique avec tkinter!
