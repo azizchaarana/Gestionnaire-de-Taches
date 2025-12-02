@@ -1,6 +1,7 @@
 # Gestionnaire de Tâches Simple
 # Pour débuter en Python
 
+import sqlite3
 from datetime import datetime
 
 def afficher_menu():
@@ -14,53 +15,76 @@ def afficher_menu():
     return choix
 
 
+def initialiser_base_donnees():
+    """Crée la base de données et la table si elles n'existent pas"""
+    connexion = sqlite3.connect("taches.db")
+    curseur = connexion.cursor()
+    curseur.execute("""
+        CREATE TABLE IF NOT EXISTS taches (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            description TEXT NOT NULL,
+            statut TEXT NOT NULL,
+            date_creation TEXT NOT NULL
+        )
+    """)
+    connexion.commit()
+    connexion.close()
+
+
 def charger_taches():
-    """Charge les tâches depuis le fichier"""
-    try:
-        with open("taches.txt", "r") as fichier:
-            taches = []
-            for ligne in fichier:
-                ligne = ligne.strip()
-                if ligne:
-                    # Format: description | statut
-                    if " | statut:" in ligne:
-                        parts = ligne.rsplit(" | statut:", 1)
-                        taches.append({
-                            "description": parts[0],
-                            "statut": parts[1]
-                        })
-                    else:
-                        # Format ancien (compatibilité)
-                        taches.append({
-                            "description": ligne,
-                            "statut": "en cours"
-                        })
-            return taches
-    except FileNotFoundError:
-        return []
+    """Charge les tâches depuis la base de données"""
+    connexion = sqlite3.connect("taches.db")
+    curseur = connexion.cursor()
+    curseur.execute("SELECT id, description, statut FROM taches")
+    resultats = curseur.fetchall()
+    connexion.close()
+
+    taches = []
+    for id, description, statut in resultats:
+        taches.append({
+            "id": id,
+            "description": description,
+            "statut": statut
+        })
+    return taches
 
 
-def sauvegarder_taches(taches):
-    """Sauvegarde les tâches dans le fichier"""
-    with open("taches.txt", "w") as fichier:
-        for tache in taches:
-            description = tache["description"]
-            statut = tache["statut"]
-            fichier.write(f"{description} | statut:{statut}\n")
+def sauvegarder_tache(description, statut="en cours"):
+    """Ajoute une nouvelle tâche dans la base de données"""
+    connexion = sqlite3.connect("taches.db")
+    curseur = connexion.cursor()
+    date_creation = datetime.now().strftime("%d/%m/%Y %H:%M")
+    curseur.execute(
+        "INSERT INTO taches (description, statut, date_creation) VALUES (?, ?, ?)",
+        (description, statut, date_creation)
+    )
+    connexion.commit()
+    connexion.close()
+
+
+def mettre_a_jour_statut(id_tache, nouveau_statut):
+    """Met à jour le statut d'une tâche"""
+    connexion = sqlite3.connect("taches.db")
+    curseur = connexion.cursor()
+    curseur.execute("UPDATE taches SET statut = ? WHERE id = ?", (nouveau_statut, id_tache))
+    connexion.commit()
+    connexion.close()
+
+
+def supprimer_tache_db(id_tache):
+    """Supprime une tâche de la base de données"""
+    connexion = sqlite3.connect("taches.db")
+    curseur = connexion.cursor()
+    curseur.execute("DELETE FROM taches WHERE id = ?", (id_tache,))
+    connexion.commit()
+    connexion.close()
 
 
 def ajouter_tache(taches):
     """Ajoute une nouvelle tâche avec la date/heure actuelle"""
     tache = input("Entrez la tâche: ")
     if tache:
-        # Ajouter la date et l'heure actuelles
-        date_heure = datetime.now().strftime("%d/%m/%Y %H:%M")
-        description = f"{tache} | Créée le: {date_heure}"
-        taches.append({
-            "description": description,
-            "statut": "en cours"
-        })
-        sauvegarder_taches(taches)
+        sauvegarder_tache(tache)
         print("✓ Tâche ajoutée!")
     else:
         print("✗ Tâche vide, non ajoutée")
@@ -74,7 +98,7 @@ def afficher_taches(taches):
         print("\n=== VOS TÂCHES ===")
         for i, tache in enumerate(taches, 1):
             icone = "✓" if tache["statut"] == "complétée" else "○"
-            print(f"{i}. [{icone}] {tache['description']}")
+            print(f"{i}. [{icone}] {tache['description']} (ID: {tache['id']})")
 
 
 def marquer_completee(taches):
@@ -87,9 +111,9 @@ def marquer_completee(taches):
     try:
         numero = int(input("\nNuméro de la tâche à marquer comme complétée: "))
         if 1 <= numero <= len(taches):
-            taches[numero - 1]["statut"] = "complétée"
-            sauvegarder_taches(taches)
-            print(f"✓ Tâche '{taches[numero - 1]['description']}' marquée comme complétée!")
+            tache = taches[numero - 1]
+            mettre_a_jour_statut(tache["id"], "complétée")
+            print(f"✓ Tâche '{tache['description']}' marquée comme complétée!")
         else:
             print("✗ Numéro invalide")
     except ValueError:
@@ -106,9 +130,9 @@ def supprimer_tache(taches):
     try:
         numero = int(input("\nNuméro de la tâche à supprimer: "))
         if 1 <= numero <= len(taches):
-            tache_supprimee = taches.pop(numero - 1)
-            sauvegarder_taches(taches)
-            print(f"✓ Tâche '{tache_supprimee['description']}' supprimée!")
+            tache = taches[numero - 1]
+            supprimer_tache_db(tache["id"])
+            print(f"✓ Tâche '{tache['description']}' supprimée!")
         else:
             print("✗ Numéro invalide")
     except ValueError:
@@ -117,9 +141,10 @@ def supprimer_tache(taches):
 
 def main():
     print("Bienvenue dans le Gestionnaire de Tâches!")
-    taches = charger_taches()
+    initialiser_base_donnees()
 
     while True:
+        taches = charger_taches()
         choix = afficher_menu()
 
         if choix == "1":

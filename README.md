@@ -8,7 +8,7 @@ Un programme Python simple pour gérer votre liste de tâches.
 - ✅ Afficher les tâches avec leur statut (○ en cours, ✓ complétée)
 - ✅ Marquer une tâche comme complétée (historique conservé)
 - ✅ Supprimer une tâche
-- ✅ Sauvegarder automatiquement dans un fichier
+- ✅ Sauvegarder dans une base de données SQLite
 
 ## Comment utiliser
 
@@ -27,7 +27,7 @@ python main.py
 ## Fichiers
 
 - `main.py`: Le programme principal
-- `taches.txt`: Fichier où les tâches sont sauvegardées (créé automatiquement)
+- `taches.db`: Base de données SQLite (créée automatiquement)
 
 ## Améliorations futures possibles
 
@@ -41,9 +41,10 @@ Ces améliorations pourraient être implémentées après maîtrise des bases:
    - Garder un historique des tâches
    - Afficher un statut (✓ complétée, ○ en cours)
 
-3. **Utiliser une base de données** au lieu d'un fichier txt
-   - Découvrir SQLite (plus robuste qu'un fichier)
-   - Meilleure gestion des données
+3. ~~**Utiliser une base de données** au lieu d'un fichier txt~~
+   - ~~Découvrir SQLite (plus robuste qu'un fichier)~~
+   - ~~Meilleure gestion des données~~
+   - ✅ **COMPLÉTÉE**: Utilisation de SQLite!
 
 4. **Ajouter une interface graphique (GUI)**
    - Utiliser tkinter (bibliothèque Python)
